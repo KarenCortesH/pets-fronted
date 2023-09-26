@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import RegisterPage from "./pages/RegisterPage"
-
+import './index.css'
 
 function App() {
   return (
