@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form"
+import { registerRequest } from "../api/auth";
 function RegisterPage() {
     const { register, handleSubmit } = useForm();
     return (
@@ -15,18 +16,20 @@ function RegisterPage() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit((values) =>
+                <form onSubmit={handleSubmit(async (values) => {
                     console.log(values)
-                )} >
+                    const res = await registerRequest(values);
+                    console.log(res)
+                })} >
                     <div>
                         <label htmlFor="fullname" className="block text-sm font-medium leading-6 text-gray-900">
                             Full Name
                         </label>
                         <div className="mt-2">
                             <input
-                                id="fullname"
-                                name='fullname'
-                                type='name'{...register("fullname)", { required: true })}
+                                id="fullName"
+                                name='fullName'
+                                type='name'{...register("fullName", { required: true })}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
@@ -38,9 +41,9 @@ function RegisterPage() {
                         </div>
                         <div className="mt-2">
                             <input
-                                id="idnumber"
-                                name="idnumber"
-                                type="number"
+                                id="identificationNumber"
+                                name="identificationNumber"
+                                type='name'{...register("identificationNumber", { required: true })}
                                 autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -55,7 +58,7 @@ function RegisterPage() {
                             <input
                                 id='phoneNumber'
                                 name='phoneNumber'
-                                type='number' {...register("phoneNumber", { required: true })}
+                                type='text' {...register("phoneNumber", { required: true })}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
@@ -74,14 +77,14 @@ function RegisterPage() {
                     </div>
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                            Adress
+                        Address
                         </label>
                         <div className="mt-2">
                             <input
                                 id="address"
                                 name="address"
                                 autoComplete="address"
-                                type='text' {...register("adress", { required: true })}
+                                type='text' {...register("address", { required: true })}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
