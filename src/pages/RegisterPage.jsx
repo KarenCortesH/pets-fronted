@@ -1,7 +1,13 @@
 import { useForm } from "react-hook-form"
-import { registerRequest } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 function RegisterPage() {
     const { register, handleSubmit } = useForm();
+    const { signup , user} = useAuth ();
+
+    console.log(user)
+    const onSubmit = handleSubmit(async (values) => {
+        signup(values);
+    });
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -16,11 +22,7 @@ function RegisterPage() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit(async (values) => {
-                    console.log(values)
-                    const res = await registerRequest(values);
-                    console.log(res)
-                })} >
+                <form onSubmit={onSubmit} >
                     <div>
                         <label htmlFor="fullname" className="block text-sm font-medium leading-6 text-gray-900">
                             Full Name
@@ -77,7 +79,7 @@ function RegisterPage() {
                     </div>
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                        Address
+                            Address
                         </label>
                         <div className="mt-2">
                             <input
