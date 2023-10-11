@@ -1,10 +1,20 @@
 import { useForm } from "react-hook-form"
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 function RegisterPage() {
-    const { register, handleSubmit } = useForm();
-    const { signup , user} = useAuth ();
+    const { register, handleSubmit,
+        formState: { errors }, } = useForm();
+    const { signup, isAuthenticated } = useAuth();
 
-    console.log(user)
+    const navigate = useNavigate();
+
+    //Creo un useEffect
+    useEffect(() => {
+        if (isAuthenticated) navigate("/tasks")
+    }, [isAuthenticated])
+
+    //console.log(user);
     const onSubmit = handleSubmit(async (values) => {
         signup(values);
     });
@@ -32,7 +42,9 @@ function RegisterPage() {
                                 id="fullName"
                                 name='fullName'
                                 type='name'{...register("fullName", { required: true })}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            {errors.fullName && <p className="text-red-500">Username is required</p>}
                         </div>
                     </div>
                     <div>
@@ -50,6 +62,7 @@ function RegisterPage() {
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
+                            {errors.identificationNumber && <p className="text-red-500">identificationNumber is required</p>}
                         </div>
                     </div>
                     <div>
@@ -74,7 +87,9 @@ function RegisterPage() {
                                 name="email"
                                 autoComplete="email" required
                                 type='email' {...register("email", { required: true })}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            {errors.email && <p className="text-red-500">email is required</p>}
                         </div>
                     </div>
                     <div>
@@ -87,7 +102,9 @@ function RegisterPage() {
                                 name="address"
                                 autoComplete="address"
                                 type='text' {...register("address", { required: true })}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            {errors.address && <p className="text-red-500">address is required</p>}
                         </div>
                     </div>
 
@@ -101,7 +118,9 @@ function RegisterPage() {
                                 name="password"
                                 autoComplete="password"
                                 type='password' {...register("password", { required: true })}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            {errors.password && <p className="text-red-500">password is required</p>}
                         </div>
                     </div>
 
